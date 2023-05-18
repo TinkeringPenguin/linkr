@@ -4,7 +4,31 @@ import Head from "~/components/SEO/Head";
 import Title from "~/components/SEO/Title";
 import links from '~/data/links.json';
 import { z } from "zod";
-import { useState } from "react";
+import React, { useState } from "react";
+
+// icons
+import { FaYoutube, FaDiscord, FaTwitter, FaGithub, FaHandsHelping, FaBookOpen } from 'react-icons/fa';
+
+interface LinkComponentInterface {
+  link: string,
+  header: string,
+  Icon: React.ReactNode
+}
+
+const LinkComponent: React.FC<LinkComponentInterface> = ({link, header, Icon}) => {
+  return (
+    <Link
+      className="flex justify-between drop-shadow-2xl items-center gap-4 rounded-xl bg-white/90 p-4 text-slate-900/90 hover:bg-white/50 transition"
+        href={link}
+        target="_blank"
+      >
+        {Icon}
+      <p className="text-2xl font-bold text-center">{header}</p>
+      <span />
+      {/* <span className="font-bold text-2xl">→</span> */}
+    </Link>
+  )
+}
 
 const Home: NextPage = () => {
   // zod verify
@@ -36,39 +60,23 @@ const Home: NextPage = () => {
     <>
       <Head />
       <Title title={`${userData.name} Links`}/> 
-    <main className={`flex min-h-screen flex-col items-center justify-center bg-indigo-700 bg-cover bg-center`}
+      <main className={`flex min-h-screen flex-col items-center justify-center bg-indigo-700 bg-cover bg-center`}
         style={{backgroundImage: `url(${userData.background_image})`}}
         >
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 pb-40">
           <div className="text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
-              {userData.name} <span className="text-[hsl(280,85%,62%)]">Links</span>
+            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              {userData.name} <span className="text-fuchsia-500">Links</span>
             </h1>
             <h2 className="text-white/95 font-bold text-xl mt-4"><a href="#">@{userData.handle}</a></h2>
           </div>
-          <div className="grid gap-4 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/70 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/70 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+          <div className="grid gap-4 md:gap-4 min-w-[320px] sm:min-w-[350px]">
+            {(userData.links.youtube_link && userData.links.youtube_heading) ? <LinkComponent link={userData.links.youtube_link} header={userData.links.youtube_heading} Icon={<FaYoutube size={24}/>} /> : null}
+            {(userData.links.github_link && userData.links.github_heading) ? <LinkComponent link={userData.links.github_link} header={userData.links.github_heading} Icon={<FaGithub size={24}/>} /> : null}
+            {(userData.links.twitter_link && userData.links.twitter_heading) ? <LinkComponent link={userData.links.twitter_link} header={userData.links.twitter_heading} Icon={<FaTwitter size={24}/>} /> : null}
+            {(userData.links.website_link && userData.links.website_heading) ? <LinkComponent link={userData.links.website_link} header={userData.links.website_heading} Icon={<FaBookOpen size={24}/>} /> : null}
+            {(userData.links.company_link && userData.links.company_name) ? <LinkComponent link={userData.links.company_link} header={userData.links.company_name} Icon={<FaHandsHelping size={24}/>} /> : null}
+            {(userData.links.discord_handle) ? <LinkComponent link={userData.links.discord_handle} header={"Discord"} Icon={<FaDiscord size={24}/>} /> : null}
           </div>
         </div>
       </main>
