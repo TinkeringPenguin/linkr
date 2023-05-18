@@ -61,7 +61,7 @@ const Home: NextPage = () => {
       <Head />
       <Title title={`${userData.name} Links`}/> 
       <main className={`flex min-h-screen flex-col items-center justify-center bg-indigo-700 bg-cover bg-center`}
-        style={{backgroundImage: `url(${userData.background_image})`}}
+        style={userData.background_image ? {backgroundImage: `url(${userData.background_image})`} : {}}
         >
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 pb-40">
           <div className="text-center">
