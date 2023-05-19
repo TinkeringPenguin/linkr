@@ -1,7 +1,7 @@
 {
     "name": "Tinkering Penguin",
     "handle": "tinkeringpenguin",
-    "//": "The background image is pulled from public/ so place your background image there",
+    "//": "The background image is pulled from public/ so place your background image there, a good background image is square, high qality and should have a bunch of empty space on the side so nothing gets cut off",
     "background_image": "background.png",
 
     "links": {
